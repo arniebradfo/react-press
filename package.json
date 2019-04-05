@@ -3,9 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"build:move": "rm -r ../react-press-build/ && mkdir ../react-press-build/ && cp -r ./build/ ../react-press-build/",
 		"ts:css": "typed-css-modules -p src/**/*.module.scss",
 		"start": "concurrently \"npm:ts:css -- -w\" \"react-scripts start\"",
-		"build": "npm run ts:css && react-scripts build",
+		"build": "npm run ts:css && react-scripts build && npm run build:move",
 		"test": "concurrently \"npm:ts:css -- -w\" \"react-scripts test\"",
 		"eject": "react-scripts eject"
 	},

@@ -1,6 +1,6 @@
 #TODOs
 - GET THEME RUNNING
-	- add functions.php and index.php
+	- better copy bash method
 	- add initial settings in with a js object
 	- create dynamic publicPath
 	- activate theme
@@ -11,3 +11,4 @@
 #TADAs
 Things that have been done. Move them here, then to a change log.
 - Get basic async wp-api redux store example working
+- add functions.php, index.php, style.css that are required for wp theme
