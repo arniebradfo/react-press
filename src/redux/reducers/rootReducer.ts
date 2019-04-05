@@ -1,10 +1,15 @@
-import { Action } from "redux";
+import { Action, AnyAction } from "redux";
+import { IReactPressActions } from "../actions/actions";
+
+// Typescript with redux: https://redux.js.org/recipes/usage-with-typescript
 
 export type IReactPressState = {
+	isLoadingPosts: boolean,
 	posts: any[]
 }
 
 const initState: IReactPressState = {
+	isLoadingPosts: false,
 	posts: []
 	// global state includes:
 	// posts
@@ -13,16 +18,18 @@ const initState: IReactPressState = {
 	// ...everything available through the WP API
 }
 
-const rootReducer = (state=initState, action:Action<any>) => {
-	console.log(action);
+const rootReducer = (state=initState, action:any) => {
 	switch (action.type) {
 		case 'GET_POSTS':
-			return state;
+			return {
+				...state,
+				posts: action.posts
+			};
 			break;
 		default:
+			return state;
 			break;
 	}
-	return state;
 } 
 
 export default rootReducer;

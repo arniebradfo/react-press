@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import style from './App.module.scss';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { IReactPressState } from './redux/reducers/rootReducer';
 import { getPosts } from './redux/actions/actions';
@@ -9,27 +8,10 @@ import { getPosts } from './redux/actions/actions';
 
 class App extends Component {
 
-
-	private _wpDomain: string = '//localhost:8888/'; // replace with publicPath
-	private _wpRest: string = this._wpDomain + 'wp-json/wp/v2/';
-	private _wpMenus: string = this._wpDomain + 'wp-json/wp-api-menus/v2/';
-	// private _ngWp: string = this._wpDomain + 'wp-json/ngwp/v2/';
-	
-
 	constructor(props: any) {
 		super(props)
-
 		console.log(props);
-		
 		props.getPosts(10);
-
-		const type = 'posts';
-		let page = 1;
-		const perPage = 100; // the max allowed by WP
-		axios.get(this._wpRest + `${type}?per_page=${perPage}&page=${page}`)
-			.then( res => {
-				console.log(res); 
-			})
 	}
 
 	render() {
@@ -63,9 +45,7 @@ const mapStateToProps = (state: IReactPressState, ownProps:any) => {
 
 const mapDispatchToProps = (dispatch:Function) => {
 	return {
-		getPosts: (count:number) => {
-			dispatch( getPosts(count) )
-		} 
+		getPosts: (count:number) => { dispatch( getPosts(count) ) } 
 	}
 	// ... normally is an object full of action creators
 }
