@@ -3,6 +3,6 @@
         "node_modules/": true,
         // "public/": true,
         // "mockups/": true,
-        // "**/*.module.scss.d.ts": true,
+        "**/*.module.scss.d.ts": true,
 	},
 }

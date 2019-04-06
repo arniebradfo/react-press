@@ -1,5 +1,5 @@
 import { Action, AnyAction } from "redux";
-import { IReactPressActions } from "../actions/actions";
+import { IReactPressActions } from "../actions/post.actions";
 
 // Typescript with redux: https://redux.js.org/recipes/usage-with-typescript
 

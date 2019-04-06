@@ -25,7 +25,5 @@ export const getPosts = (count:number) => {
 					posts: res.data
 				});
 			});
-			
-
 	}
 }
