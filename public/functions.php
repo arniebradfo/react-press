@@ -1,8 +1,8 @@
 <?php
 
-	function ngwp_theme_setup() {
+	function reactpress_theme_setup() {
 
-		// load_theme_textdomain( 'ngwp', get_template_directory() . '/languages' );
+		// load_theme_textdomain( 'reactpress', get_template_directory() . '/languages' );
 
 		// add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
 		// add_theme_support( 'automatic-feed-links' );
@@ -13,8 +13,8 @@
 
 		// Nav Menus
 		register_nav_menus( array(
-			'primary'   => __( 'Navigation Menu', 'ngwp' ),
-			'secondary' => __( 'Footer Menu', 'ngwp' ),
+			'primary'   => __( 'Navigation Menu', 'reactpress' ),
+			'secondary' => __( 'Footer Menu', 'reactpress' ),
 		) );
 
 		// featured images aka thumbnails
@@ -38,52 +38,43 @@
 		// change option defaults - https://codex.wordpress.org/Option_Reference
 		update_option('image_default_link_type', 'none');
 		update_option('image_default_align', 'none');
-		update_option('uploads_use_yearmonth_folders', 0); // keep all uploaded images in the same folder
-		update_option('use_smilies', 0); // becasue fuck smiling >:( 
+		// update_option('uploads_use_yearmonth_folders', 0); // keep all uploaded images in the same folder
+		update_option('use_smilies', 0); // because fuck smiling >:( 
 
 	}
-	add_action( 'after_setup_theme', 'ngwp_theme_setup' );
+	add_action( 'after_setup_theme', 'reactpress_theme_setup' );
 
-	// add custom css to style inside the tinyMCE editor
-	function add_editor_styles() {
-		add_editor_style(); // path defaults to editor-style.css
+	function reactpress_scripts() {
+		wp_register_script( 'wp-theme-options', false );
+		wp_localize_script( 'wp-theme-options', 'WP_THEME_OPTIONS', reactpress_get_wp_options() );
+		wp_enqueue_script(  'wp-theme-options');
 	}
-	add_action( 'admin_init', 'add_editor_styles' );
-
-	// NG-SHORTCODES //
-	// transform Shortcodes into angular Tags
-    function shortcode_func( $atts, $content=null, $tag='' ) {
-		$output = '<'.$tag.' ';               // opening tag
-		foreach($atts as $att => $val)
-            $output .= $att.'="'.$val.'" ';   // echo all attributes from the shorcode
-        $output .= '>';                       // close the opening tag
-        $output .= do_shortcode($content);    // content
-		$output .= '</'.$tag.'>';             // closing tag
-		return $output;
-    }
-    add_shortcode( 'ngwp-example', 'shortcode_func' );
-    add_shortcode( 'ngwp-example-2', 'shortcode_func' );
-	// add_shortcode( 'any-tag-name-you-want', 'shortcode_func' );
+	add_action( 'wp_enqueue_scripts', 'reactpress_scripts' );
 
 	// wpautop tries to add <p> tags around EVERYTHING. 
-	remove_filter('the_content', 'wpautop');
-	remove_filter('the_excerpt', 'wpautop');
+	// remove_filter('the_content', 'wpautop');
+	// remove_filter('the_excerpt', 'wpautop');
 	
-	// Ng OPTIONS //
-	// register route to get options needed for Angular
+	// REST API OPTIONS //
+	// register REST API route to get wp options
 	add_action( 'rest_api_init', function () {
-		register_rest_route( 'ngwp/v2', '/options', array(
+		register_rest_route( 'reactpress/v2', '/options', array(
 			array(
 				'methods'  => WP_REST_Server::READABLE,
-				'callback' => 'ngwp_get_wp_options',
+				'callback' => 'reactpress_get_rest_options',
 			)
 		) );
 	});
-	function ngwp_get_wp_options( WP_REST_Request $request ) {
+
+	function reactpress_get_rest_options( WP_REST_Request $request ) {
+		return new WP_REST_Response( reactpress_get_wp_options() );
+	}
+	
+	function reactpress_get_wp_options() {
 
 		// WP SETTINGS OPTIONS //
 		// @link: https://codex.wordpress.org/Option_Reference
-		return new WP_REST_Response(array(
+		return array(
 			'discussion' => array(
 				'require_name_email' => boolval(get_option('require_name_email')),
 				'thread_comments' => boolval(get_option('thread_comments')),
@@ -127,7 +118,7 @@
 				// 'widget_rss' => get_option('widget_rss'),
 			),
 			// 'nonce' => wp_create_nonce( 'wp_rest' )
-		));
+		);
 	}
 
 	// need this in order to post comments from the rest api
@@ -136,9 +127,9 @@
 
 	// WIDGETS //
 	// can't do widgets right now
-	// function ngwp_widget_setup() {
+	// function reactpress_widget_setup() {
 	// 	register_sidebar( array(
-	// 		'name'          => __( 'Footer Widgets', 'ngwp' ),
+	// 		'name'          => __( 'Footer Widgets', 'reactpress' ),
 	// 		'id'            => 'footer-widgets',
 	// 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 	// 		'after_widget'  => '</div>',
@@ -146,7 +137,7 @@
 	// 		'after_title'   => '</h3>',
 	// 	) );
 	// }
-	// add_action( 'widgets_init', 'ngwp_widget_setup' );
+	// add_action( 'widgets_init', 'reactpress_widget_setup' );
 
 // stay cool y'all! 
 ?>

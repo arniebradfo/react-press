@@ -3,11 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"build:pre-rename": "mv ./public/index.php ./public/index.html",
-		"build:post-rename": "mv ./build/index.html ./build/index.php && mv ./public/index.html ./public/index.php",
+		"build:rename": "mv ./build/index.html ./build/index.php",
 		"ts:css": "typed-css-modules -p src/**/*.module.scss",
 		"start": "concurrently \"npm:ts:css -- -w\" \"react-scripts start\"",
-		"build": "npm run build:pre-rename && npm run ts:css && react-scripts build && npm run build:post-rename",
+		"build": "npm run ts:css && react-scripts build && npm run build:rename",
 		"test": "concurrently \"npm:ts:css -- -w\" \"react-scripts test\"",
 		"eject": "react-scripts eject"
 	},
