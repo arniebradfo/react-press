@@ -12,8 +12,12 @@ A SPA Wordpress theme using React, Redux, Typescript, and the WordPress REST API
 	- [Typescript for Redux](https://redux.js.org/recipes/usage-with-typescript)
 	- [Typescript for SCSS modules](https://gist.github.com/Hotell/01035a3ec202245d6b97937444140877)
 - [Axios](https://github.com/axios/axios) for http calls
+	- [Thunk Async Redux](https://redux.js.org/advanced/async-actions)
 - [React Router](https://reacttraining.com/react-router/) for routing
 	- [React router with Redux](https://redux.js.org/advanced/usage-with-react-router)
+- [React Redux Video Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG)
+- [React Redux Video Tutorial 2](https://www.youtube.com/playlist?list=PL4cUxeGkcC9iWstfXntcj8f-dFZ4UtlN3)
+
 
 ## Other Wordpress + React Projects
 - [tri.be example](https://tri.be/blog/redux-react-and-the-wordpress-rest-api-v2/)

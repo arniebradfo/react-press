@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import style from './App.module.scss';
 import { connect } from 'react-redux';
-import { IReactPressState } from '../redux/reducers/root.reducer';
 import { getPosts } from '../redux/actions/post.actions';
+import { ThunkDispatch } from 'redux-thunk';
 
 
 class ReactPressApp extends Component {
@@ -20,19 +20,18 @@ class ReactPressApp extends Component {
 	}
 }
 
-const mapStateToProps = (state: IReactPressState, ownProps:any) => {
-	// ... computed data from state and optionally ownProps
+const mapStateToProps = (state:any, ownProps:any) => {
 	return {
 		posts: state.posts
 	}
 }
 
-const mapDispatchToProps = (dispatch:Function) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
 	return {
 		getPosts: (count:number) => { dispatch( getPosts(count) ) } 
 	}
-	// ... normally is an object full of action creators
 }
  
 export default connect( mapStateToProps, mapDispatchToProps )(ReactPressApp);
- 
+
+connect(mapStateToProps, )

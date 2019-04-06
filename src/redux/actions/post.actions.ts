@@ -1,11 +1,19 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { IWpPost } from '../../types/wp-rest-api';
+import { ThunkDispatch } from 'redux-thunk';
 
+export const GET_POSTS = 'GET_POSTS'
 
-export type IReactPressActions = 'GET_POSTS'
+interface GetPostsAction {
+	type: typeof GET_POSTS
+	posts: IWpPost[];
+}
 
-export const getPosts = (count:number) => {
-	
-	return (dispatch:any, getState:any) => {
+export type PostActionTypes = GetPostsAction;
+
+export const getPosts = (count: number) => {
+
+	return (dispatch:ThunkDispatch<{}, {}, any>) => {
 		// do async
 
 		const _wpDomain = '//localhost:8888/'; // replace with publicPath
@@ -17,11 +25,10 @@ export const getPosts = (count:number) => {
 		const perPage = count; // the max allowed by WP
 
 		axios.get(_wpRest + `${type}?per_page=${perPage}&page=${page}`)
-			.then( res => {
-				console.log(res); 
-				dispatch( { 
-					type:'GET_POSTS', 
-					count: count,
+			.then((res:AxiosResponse<IWpPost[]>) => {
+				console.log(res);
+				dispatch({
+					type: GET_POSTS,
 					posts: res.data
 				});
 			});
